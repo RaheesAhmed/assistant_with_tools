@@ -19,8 +19,8 @@ This Streamlit application allows users to generate a mystery story based on pro
 
 1. Clone the repository:
     ```bash
-    git clone https://github.com/your-repo/story-generator.git
-    cd story-generator
+    git clone https://github.com/RaheesAhmed/assistant_with_tools.git
+    cd assistant_with_tools
     ```
 
 2. Install the required packages:
