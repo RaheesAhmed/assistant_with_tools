@@ -2,7 +2,7 @@ from openai import OpenAI  # type: ignore
 import os
 import dotenv  # type: ignore
 import json
-
+import streamlit as st  # type: ignore
 
 dotenv.load_dotenv()
 
@@ -34,6 +34,7 @@ def create_story(story_details):
         ],
     )
     print(response.choices[0].message.content)
+    st.write(response.choices[0].message.content)
     save_response_to_json(response.choices[0].message.content)
     return response.choices[0].message.content
 
@@ -53,21 +54,22 @@ def read_story():
         return data
 
 
-# userMessage = {
-#     "title": "The Lost Artifact of Galactoria",
-#     "storyline": "Aboard the interstellar spaceship 'Galactoria,' the crew is on a mission to explore distant galaxies and uncover ancient alien artifacts. During their voyage, the most prized artifact, the 'Star of Eternity,' has mysteriously disappeared from the secure vault. The artifact was to be presented to the Galactic Council as a symbol of peace. Captain Nova is called in to solve the case. There are nine suspects, each with overlapping traits, and four crucial clues that will lead to the identity of the thief.",
-#     "mysteryEvent": "The 'Star of Eternity,' an ancient and powerful alien artifact, was last seen in the secure vault during the ship's evening briefing. When the vault was reopened for the presentation to the Galactic Council, the artifact was missing. Captain Nova must now interview the suspects and uncover the clues to find the culprit.",
-#     "characters": [
-#         "Occupation: Historian, Personality: Analytical, Physical Trait: Slender, Hobby: Reading ancient texts, Accessory: Wears smart glasses",
-#         "Occupation: Journalist, Personality: Inquisitive, Physical Trait: Average build, Hobby: Writing space mystery novels, Accessory: Wears a neural cap",
-#         "Occupation: Lawyer, Personality: Persuasive, Physical Trait: Stocky, Hobby: Playing intergalactic chess, Accessory: Wears a tie",
-#         "Occupation: Pilot, Personality: Methodical, Physical Trait: Lean, Hobby: Bird watching on alien planets, Accessory: Wears a navigation pocket watch",
-#     ],
-#     "clues": [
-#         "The thief is known for their analytical mind and is often seen reading or playing intergalactic chess.",
-#         "Witnesses recall seeing the suspect wearing smart glasses, a tie, or a neural cap at the evening briefing.",
-#         "The thief was seen passionately discussing either ancient alien texts or their latest space mystery novel with another crew member during the gala.",
-#         "The suspect has a penchant for solving complex puzzles and is meticulous in their approach.",
-#     ],
-# }
+userMessage = {
+    "title": "A Love to Remember",
+    "storyline": "In a small picturesque town, nestled between rolling hills and serene lakes, lived a young woman named Emily. She was known for her kind heart and beautiful smile, which could light up even the gloomiest day. One day, a charming artist named James moved into the town. With his arrival, he brought a burst of color and life, capturing the beauty of the town on his canvas. Emily and James' paths crossed one sunny afternoon at the local market.",
+    "mysteryEvent": "Their love story began when James left a small painting at Emily's flower shop, depicting a beautiful bouquet of her favorite flowers. This act of kindness was the first clue in their blossoming relationship. Emily found a handwritten note from James, inviting her to an art exhibition, where she discovered a painting of herself, titled 'The Heart of the Town'.",
+    "characters": [
+        "Occupation: Florist, Personality: Kind-hearted, Physical Trait: Bright smile, Hobby: Arranging beautiful bouquets, Accessory: Wears a floral apron",
+        "Occupation: Artist, Personality: Charming, Physical Trait: Tall and slender, Hobby: Painting vibrant scenes, Accessory: Carries a sketchbook",
+        "Occupation: Cafe Owner, Personality: Warm and welcoming, Physical Trait: Curvy, Hobby: Baking delicious pastries, Accessory: Wears a chef's hat",
+        "Occupation: Shopkeeper, Personality: Friendly, Physical Trait: Stocky, Hobby: Sharing stories about the town's history, Accessory: Wears glasses",
+    ],
+    "clues": [
+        "James left a small painting at Emily's flower shop, depicting a beautiful bouquet of her favorite flowers.",
+        "Emily found a handwritten note from James, inviting her to an art exhibition.",
+        "At the art exhibition, Emily discovered a painting of herself, titled 'The Heart of the Town'.",
+        "James surprised Emily with a picnic by the lake, where they first met.",
+    ],
+}
+
 # create_story(userMessage)
