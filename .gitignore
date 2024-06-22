@@ -1,0 +1,10 @@
+/node_modules
+.env
+/venv
+code.py
+app.py
+response.json
+story_details.json
+test.py
+zapierdata.txt
+/__pycache__
