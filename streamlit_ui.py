@@ -7,8 +7,8 @@ from download_image import download_image
 from generate_story import create_story
 from generate_docs_file import create_docx_from_json
 from openai import OpenAI  # type: ignore
-import dotenv  # type: ignore
-import requests  # type: ignore
+import dotenv
+import requests
 
 # Load environment variables
 dotenv.load_dotenv()
@@ -55,12 +55,12 @@ def chat_with_assistant(story_details):
             role="user",
             content=f"""You are an assistant that helps create visual stories and images based on given mystery narratives. Your tasks include:
     - Understand the Story Context: Read and comprehend the provided mystery story, including the title, storyline, event causing the mystery, characters, and clues.
-    - Generate Image Descriptions:
-        - Main Story Image: Describe an image representing the overall mystery story.
-        - Event Image: Describe an image that captures the event causing the mystery.
-        - Character Images: For each character, describe an image that includes their occupation, personality, physical traits, hobby, and accessory.
-        - Clue Images: For each clue, describe an image that visually represents the clue's text.
-        - Solution Image: Describe an image representing the solution to the mystery.
+    - Generate Images:
+        - Main Story Image: image representing the overall mystery story.
+        - Event Image:  an image that captures the event causing the mystery.
+        - Character Images: For each character, generate an image that includes their occupation, personality, physical traits, hobby, and accessory.
+        - Clue Images: For each clue, generate an image that visually represents the clue's text.
+        - Solution Image: generate an image representing the solution to the mystery.
     - Generate Cryptograms: For each clue, generate a number cryptogram image based on the provided text.
     Please ensure each image accurately reflects the description provided in the story and clues. Maintain consistency in style and quality throughout the images 
 
