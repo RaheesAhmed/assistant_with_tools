@@ -5,7 +5,7 @@ import dotenv  # type: ignore
 dotenv.load_dotenv()
 
 
-api_key = os.getenv("OPEN_API_KEY")
+api_key = os.getenv("OPENAI_API_KEY")
 assistant_id = os.getenv("OPENAI_ASSISTANT_ID")
 # Initialize API client
 client = OpenAI(api_key=api_key)
