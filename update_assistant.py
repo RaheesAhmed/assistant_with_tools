@@ -15,20 +15,21 @@ my_updated_assistant = client.beta.assistants.update(
     assistant_id,
     instructions=f"""You are an assistant that helps create visual stories and images based on given mystery narratives. Your tasks include:
 
-1. Understand the Story Context:
+1. **Understand the Story Context**:
     - Read the provided mystery story, including the title, storyline, event causing the mystery, characters, and clues.
-2. Generate Visual Content:
+2. **Generate Visual Content**:
     - Create images representing key elements of the story such as the main story image, event image, character images, clue images, and solution image.
-3. Create Cryptograms:
+3. **Create Cryptograms**:
     - Generate cryptogram images for each clue based on the provided text.
-4. Download and Organize Content:
+4. **Download and Organize Content**:
     - Download the generated images and save them with specified names.
-5. Combine Story and Visuals:
+5. **Combine Story and Visuals**:
     - Integrate the story and the downloaded images into a structured JSON format, maintaining a coherent narrative flow.
-6. Generate Document:
+6. **Generate Document**:
     - Create a DOCX file that contains the story and the images, maintaining a coherent narrative flow.
-7. Provide Clean Output:
-    - Ensure the final response is in a clean JSON format without using the word 'JSON' or any extra formatting.""",
+7. **Provide Clean Output**:
+    - Ensure the final response is in a clean JSON format without using the word 'JSON' or any extra formatting.
+""",
     model="gpt-4o",
     name="Mystery Story Generator",
     tools=[
@@ -75,6 +76,44 @@ my_updated_assistant = client.beta.assistants.update(
             "type": "function",
             "function": {
                 "name": "test_create_docx_from_json",
+                "description": "Generates a Word document based on a JSON file containing story details, images, and descriptions. The document will be saved on local storage.",
+                "parameters": {
+                    "type": "object",
+                    "properties": {
+                        "json_file_path": {
+                            "type": "string",
+                            "description": "The path to the JSON file containing the story data.",
+                        },
+                        "output_docx_path": {
+                            "type": "string",
+                            "description": "The path where the generated Word document will be saved.",
+                        },
+                    },
+                    "required": ["json_file_path", "output_docx_path"],
+                },
+            },
+        },
+        {
+            "type": "function",
+            "function": {
+                "name": "read_json",
+                "description": "Reads a genereted story JSON file and returns the data.",
+                "parameters": {
+                    "type": "object",
+                    "properties": {
+                        "json_file_path": {
+                            "type": "string",
+                            "description": "The path to the JSON file containing the story data.",
+                        },
+                    },
+                    "required": ["json_file_path"],
+                },
+            },
+        },
+        {
+            "type": "function",
+            "function": {
+                "name": "create_docx_from_json",
                 "description": "Generates a Word document based on a JSON file containing story details, images, and descriptions. The document will be saved on local storage.",
                 "parameters": {
                     "type": "object",

@@ -36,25 +36,21 @@ def chat_with_assistant(story_details):
         message = client.beta.threads.messages.create(
             thread_id=thread.id,
             role="user",
-            content=f"""Read the provided mystery story, including the title, storyline, event causing the mystery, characters, and clues and images descriptions.
-Generate Images:
-Main Story Image: an image representing the overall mystery story.
-Event Image: an image that captures the event causing the mystery.
-Character Images: For each character, generate an image that includes their occupation, personality, physical traits, hobby, and accessory.
-Clue Images: For each clue, generate an image that visually represents the clue's text.
-Solution Image: generate an image representing the solution to the mystery.
-Generate Cryptograms:
+            content=f"""Read the provided mystery story, including the title, storyline, event causing the mystery, characters, and clues. Generate the following visual content and cryptograms:
 
-For each clue, generate a number cryptogram image based on the provided text.
+1. **Main Story Image**: An image representing the overall mystery story.
+2. **Event Image**: An image that captures the event causing the mystery.
+3. **Character Images**: For each character, generate an image that includes their occupation, personality, physical traits, hobby, and accessory.
+4. **Clue Images**: For each clue, generate an image that visually represents the clue's text.
+5. **Solution Image**: Generate an image representing the solution to the mystery.
+6. **Cryptograms**: For each clue, generate a number cryptogram image based on the provided text.
 
-If there is any error in the image generation, please try again with different prompt.
-Download Images:
-Download each generated image and save it to the images folder with a given image name.
-Combine Story and Images:
-combine the {story} and the downloaded image into a structured json format, maintaining a coherent narrative flow.
-Always provide the response using the given json format.
-Json format should be like this: {json.dumps(RESPONSE_FORMAT, ensure_ascii=False)}
-Here are the mystery story details: {json.dumps(story, ensure_ascii=False)} provide a clean json object without any extra formatting or word json""",
+If there is any error in the image generation, please try again with a different prompt. Download each generated image and save it to the images folder with a given image name. Combine the story and the downloaded images into a structured JSON format, maintaining a coherent narrative flow. Always provide the response using the given JSON format.
+
+JSON format should be like this: {json.dumps(RESPONSE_FORMAT, ensure_ascii=False)}
+Here are the mystery story details: {json.dumps(story, ensure_ascii=False)}
+Provide a clean JSON object without any extra formatting or the word 'JSON'.
+""",
         )
         st.write(f"User message added successfully with ID: {message.id}")
 
@@ -99,6 +95,41 @@ Here are the mystery story details: {json.dumps(story, ensure_ascii=False)} prov
                             st.write(f"Image downloaded successfully: {result}")
                             tool_outputs.append(
                                 {"tool_call_id": tool.id, "output": json.dumps(result)}
+                            )
+                        elif tool.function.name == "create_docx_from_json":
+                            st.write("Creating DOCX file from JSON data")
+                            json_file_path = "generated_story.json"
+                            result = create_docx_from_json(
+                                json_file_path, "generated_story.docx"
+                            )
+                            st.write(f"DOCX file created successfully: {result}")
+                            tool_outputs.append(
+                                {
+                                    "tool_call_id": tool.id,
+                                    "output": json.dumps(result),
+                                }
+                            )
+                        elif tool.function.name == "send_to_zapier":
+                            st.write("Sending DOCX file to Zapier")
+                            file_path = "generated_story.docx"
+                            send_to_zapier(file_path)
+                            st.write("DOCX file sent to Zapier successfully.")
+                            tool_outputs.append(
+                                {
+                                    "tool_call_id": tool.id,
+                                    "output": json.dumps("File sent to Zapier"),
+                                }
+                            )
+                        elif tool.function.name == "read_json":
+                            st.write("Reading JSON file")
+                            json_file_path = "generated_story.json"
+                            data = read_json(json_file_path)
+                            st.write(f"JSON file read successfully: {data}")
+                            tool_outputs.append(
+                                {
+                                    "tool_call_id": tool.id,
+                                    "output": json.dumps(data),
+                                }
                             )
                     except Exception as e:
                         st.write(f"An error occurred during tool call processing: {e}")
