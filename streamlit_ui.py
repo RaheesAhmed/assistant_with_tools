@@ -63,8 +63,9 @@ def chat_with_assistant(story_details):
         - Solution Image: generate an image representing the solution to the mystery.
     - Generate Cryptograms: For each clue, generate a number cryptogram image based on the provided text.
     Please ensure each image accurately reflects the description provided in the story and clues. Maintain consistency in style and quality throughout the images 
-
-Here are the mystery story details: {json.dumps(story, ensure_ascii=False)} dont use the \n  \ and \ with the json response prvide a clean json object with any extra formatting or word json""",
+Download Images:
+-download the images generated from the descriptions and save them to a given folder.
+Here are the mystery story details: {json.dumps(story, ensure_ascii=False)}  prvide a clean json object with any extra formatting or word json""",
         )
 
         run = client.beta.threads.runs.create_and_poll(
@@ -133,7 +134,7 @@ with st.form(key="story_form"):
 
     st.write("Characters")
     characters = []
-    for i in range(5):
+    for i in range(4):
         character = st.text_input(
             f"Character {i+1}", value=f"Character {i+1} description"
         )
@@ -141,7 +142,7 @@ with st.form(key="story_form"):
 
     st.write("Clues")
     clues = []
-    for i in range(3):
+    for i in range(4):
         clue = st.text_input(f"Clue {i+1}", value=f"Clue {i+1} description")
         clues.append(clue)
 

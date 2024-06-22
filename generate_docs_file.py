@@ -39,7 +39,7 @@ def create_docx_from_json(json_data, output_path):
         if "text" in section:
             add_paragraph(document, section["text"])
         if "image" in section:
-            add_image(document, section["image"], width=4)
+            add_image(document, section["image"], width=6)
         if "description" in section:
             add_paragraph(document, section["description"])
         if "characters" in section:
@@ -50,11 +50,11 @@ def create_docx_from_json(json_data, output_path):
         if "clue" in section:
             add_paragraph(document, f"Clue: {section['clue']}")
             add_paragraph(document, section["description"])
-            add_image(document, section["image"], width=3)
+            add_image(document, section["image"], width=4)
             add_image(document, section["cryptogram_image"], width=2)
         if "solution" in section:
             add_paragraph(document, section["solution"])
-            add_image(document, section["image"], width=4)
+            add_image(document, section["image"], width=6)
             add_paragraph(document, section["description"])
 
     document.save(output_path)

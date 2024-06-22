@@ -42,7 +42,7 @@ def create_story(story_details):
 def save_response_to_json(response):
     with open("generated_story.json", "w") as file:
         json.dump(response, file, indent=4)
-        print("Response saved to response.json")
+        print("Response saved to generated_story.json")
 
 
 # read the json file
