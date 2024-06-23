@@ -47,7 +47,7 @@ ZAPIER_WEBHOOK_URL=your_zapier_webhook_url
 
 1. Start the Streamlit application:
     ```bash
-    streamlit run app.py
+    streamlit run streamlit_ui.py
     ```
 
 2. This command will open the Streamlit app in your default web browser.
@@ -75,7 +75,7 @@ ZAPIER_WEBHOOK_URL=your_zapier_webhook_url
 
 ## File Descriptions
 
-- `app.py`: The main Streamlit application script.
+- `streamlit_ui.py`: The main Streamlit application script.
 - `generate_story.py`: Contains the function to generate the story.
 - `generate_images.py`: Contains the function to generate images.
 - `download_image.py`: Contains the function to download images.
